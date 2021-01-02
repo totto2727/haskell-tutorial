@@ -1,7 +1,7 @@
 import Data.Function
 import Data.List
 
-myLast :: [a] -> a
+{-myLast :: [a] -> a
 myLast = head . reverse
 
 myLast1 :: [a] -> a
@@ -31,30 +31,7 @@ myAny :: (a -> Bool) -> [a] -> Bool
 myAny checker = foldr (||) False . map checker
 
 myAny1 :: (a -> Bool) -> [a] -> Bool
-myAny1 checker list = map checker list & foldr (||) False
-
-type Events = [String]
-
-type Probs = [Double]
-
-data PTable = PTable Events Probs
-
-createPTable :: Events -> Probs -> PTable
-createPTable events probs = PTable events normalizedProbs
-  where
-    totalProbs = sum probs
-    normalizedProbs = map (/ totalProbs) probs
-
-showPair :: String -> Double -> String
-showPair events probs = mconcat [events, "|", show probs, "\n"]
-
-instance Show PTable where
-  show (PTable events probs) = mconcat pairs
-    where
-      pairs = zipWith showPair events probs
-
-coinTossTable :: PTable
-coinTossTable = createPTable ["front", "back"] [1, 1]
+myAny1 checker list = map checker list & foldr (||) False-}
 
 cartCombine :: (a -> b -> c) -> [a] -> [b] -> [c]
 cartCombine f l1 l2 = zipWith f newL1 cycledL2
@@ -64,7 +41,50 @@ cartCombine f l1 l2 = zipWith f newL1 cycledL2
     newL1 = mconcat repeatedL1
     cycledL2 = cycle l2
 
-combineEvents :: Events -> Events -> Events
+newtype Events = Events [String] deriving (Show)
+
+instance Monoid Events where
+  mempty = Events []
+  mappend = (<>)
+
+instance Semigroup Events where
+  (<>) (Events e1) (Events [])=Events e1
+  (<>) (Events []) (Events e2)=Events e2 
+  (<>) (Events e1) (Events e2) = Events $ cartCombine combiner e1 e2
+    where
+      combiner x y = mconcat [x, "-", y]
+
+newtype Probs = Probs [Double] deriving (Show)
+
+instance Semigroup Probs where
+  (<>) (Probs p1) (Probs [])=Probs p1
+  (<>) (Probs []) (Probs p2)=Probs p2
+  (<>) (Probs p1) (Probs p2) = Probs $ cartCombine (*) p1 p2
+  
+instance Monoid Probs where
+  mempty=Probs []
+  mappend =(<>)
+
+data PTable = PTable Events Probs
+
+createPTable :: Events -> Probs -> PTable
+createPTable (Events events) (Probs probs) = PTable (Events events) (Probs normalizedProbs)
+  where
+    totalProbs = sum probs
+    normalizedProbs = map (/ totalProbs) probs
+
+showPair :: String -> Double -> String
+showPair events probs = mconcat [events, "|", show probs, "\n"]
+
+instance Show PTable where
+  show (PTable (Events events) (Probs probs)) = mconcat pairs
+    where
+      pairs = zipWith showPair events probs
+
+coinTossTable :: PTable
+coinTossTable = createPTable (Events ["front", "back"]) (Probs [1, 1])
+
+{-combineEvents :: Events -> Events -> Events
 combineEvents = cartCombine combiner
   where
     combiner x y = mconcat [x, "-", y]
@@ -72,16 +92,23 @@ combineEvents = cartCombine combiner
 combineProbs :: Probs -> Probs -> Probs
 combineProbs = cartCombine combiner
   where
-    combiner x y = x * y
+    combiner x y = x * y-}
 
 instance Semigroup PTable where
-  (<>) (PTable [] []) pTable2 = pTable2
-  (<>) pTable1 (PTable [] []) = pTable1
   (<>) (PTable e1 p1) (PTable e2 p2) = createPTable newEvents newProbs
     where
-      newEvents = combineEvents e1 e2
-      newProbs = combineProbs p1 p2
+      newEvents = mconcat [e1,e2]
+      newProbs = mconcat [p1,p2]
 
 instance Monoid PTable where
-  mempty = PTable [] []
+  mempty = PTable (Events []) (Probs [])
   mappend = (<>)
+
+events1 :: Events
+events1=Events ["a","b","c"]
+events2 :: Events
+events2=Events ["d","e","f"]
+probs1 :: Probs
+probs1=Probs [1,2,3]
+probs2 :: Probs
+probs2=Probs [4,5,6]
