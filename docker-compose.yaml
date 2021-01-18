@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  haskell:
+    volumes:
+      - .:/app
+    image: haskell:8.10.2
+    tty: true
