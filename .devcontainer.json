@@ -1,7 +1,7 @@
 {
     "name": "HaskellDevContainer",
     // DockerhubのHaskell公式イメージ
-    "image": "haskell:8.8",
+    "image": "haskell:8.10.2",
     "extensions": [
         // HaskellのVSCode拡張をインストール
         // https://marketplace.visualstudio.com/items?itemName=haskell.haskell
