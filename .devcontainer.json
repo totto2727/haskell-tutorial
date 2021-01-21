@@ -1,7 +1,0 @@
-{
-    "name" : "Haskell",
-    "dockerComposeFile":"docker-compose.yaml",
-    "service": "haskell",
-    "workspaceFolder": "/app",
-    "extensions": ["haskell.haskell"]
-}
