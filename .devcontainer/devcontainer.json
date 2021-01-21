@@ -4,7 +4,9 @@
     "service": "workspace",
     "workspaceFolder": "/workspace",
     "extensions": [
+		//
 		"haskell.haskell",
+		//
 		"oderwat.indent-rainbow",
 		"christian-kohler.path-intellisense",
 		"2gua.rainbow-brackets",
@@ -16,7 +18,11 @@
 		"mhutchie.git-graph",
 		"wmaurer.change-case",
 		"ms-azuretools.vscode-docker",
-		"ms-kubernetes-tools.vscode-kubernetes-tools"
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"visualstudioexptteam.vscodeintellicode",
+		"mechatroner.rainbow-csv",
+		"tomoki1207.pdf",
+		"ics.japanese-proofreading"
 	],
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash"
