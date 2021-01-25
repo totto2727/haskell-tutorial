@@ -7,4 +7,5 @@ services:
     tty: true
     volumes:
       - ../:/workspace
+      - /workspace/.stack-work
     working_dir: /workspace

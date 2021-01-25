@@ -1,0 +1,10 @@
+{
+    "indentRainbow.ignoreErrorLanguages": [
+        "markdown"
+    ],
+    "indentRainbow.excludedLanguages": [
+        "plaintext",
+        "haskell"
+    ],
+    "editor.acceptSuggestionOnEnter": "off",
+}
