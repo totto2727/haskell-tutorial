@@ -26,5 +26,6 @@
 	],
     "settings": {
         "terminal.integrated.shell.linux": "bash"
-    },
+	},
+	"postCreateCommand": "stack setup"
 }
