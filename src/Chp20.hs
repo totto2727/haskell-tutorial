@@ -98,7 +98,30 @@ maxTS = makeTSCompare max
 diffPair :: Num a => Maybe a -> Maybe a -> Maybe a
 diffPair Nothing _ = Nothing
 diffPair _ Nothing = Nothing
-diffPair (Just x)  (Just y) = Just $ x-y
+diffPair (Just x) (Just y) = Just $ x - y
 
-diffTS::Num a=>TS a->TS a
-diffTS (TS t v) =TS t $ zipWith diffPair v $ Nothing:v
+diffTS :: Num a => TS a -> TS a
+diffTS (TS t v) = TS t $ zipWith diffPair v $ Nothing : v
+
+meanMaybe :: Real a => [Maybe a] -> Maybe Double
+meanMaybe xs =
+  if Nothing `elem` xs
+    then Nothing
+    else Just . mean . map fromJust $ xs
+
+movingArg :: Real a => [Maybe a] -> Int -> [Maybe Double]
+movingArg [] n = []
+movingArg xs n =
+  let calcXs = take n xs
+      restXs = tail xs
+   in if length calcXs == n
+        then meanMaybe calcXs : movingArg restXs n
+        else []
+
+maTS :: Real a => TS a -> Int -> TS Double
+maTS (TS [] []) _ = TS [] []
+maTS (TS t v) n =
+  let ma = movingArg v n
+      nothings = replicate (n `div` 2) Nothing
+      smoothedValues = mconcat [nothings, ma, nothings]
+   in TS t smoothedValues
