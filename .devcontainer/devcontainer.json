@@ -24,8 +24,5 @@
 		"tomoki1207.pdf",
 		"ics.japanese-proofreading"
 	],
-    "settings": {
-        "terminal.integrated.shell.linux": "bash"
-	},
 	"postCreateCommand": "stack setup"
 }

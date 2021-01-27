@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e7dab39a3739cce02b64dfe134570483e060ae7d094963a3510cd9b6944308a3
+-- hash: f9275cb7cb1133356c7a9e96639d54163645ca87222aa01fd15d8228a8413548
 
 name:           haskell
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Chp20
+      Chp21
       Lib
   other-modules:
       Paths_haskell
