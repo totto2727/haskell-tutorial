@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  workspace:
+    container_name: haskell
+    build : .
+    tty: true
+    volumes:
+      - ../:/workspace
+    working_dir: /workspace
