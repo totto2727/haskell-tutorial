@@ -1,1 +1,6 @@
 /.stack-work
+*.hi
+*.o
+src/chp22/SumLazy
+dist-newstyle/cache/compiler
+dist-newstyle/cache/config
