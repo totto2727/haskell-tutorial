@@ -9,3 +9,4 @@ someText="Some\ntest for\t you"
 
 cutText::[T.Text]
 cutText=T.words someText
+

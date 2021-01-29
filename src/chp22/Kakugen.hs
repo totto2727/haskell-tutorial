@@ -13,7 +13,7 @@ reply str
 
 replys::[String ]->[String ]
 replys []= []
-replys ("n":_)= []
+replys ("n":_)= ["finish"]
 replys (x:xs)=reply x:replys xs
 
 main::IO ()

@@ -2,3 +2,5 @@
 *~
 *.hi
 *.o
+src/chp22/Sum
+src/chp23/InputSum
